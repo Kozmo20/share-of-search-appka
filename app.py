@@ -83,8 +83,10 @@ if run_button:
         st.warning("Google Trends umožňuje priame porovnanie maximálne 5 kľúčových slov naraz.")
     else:
         try:
-            with st.spinner('Sťahujem a spracovávam dáta z Google Trends...'):
-                pytrends = TrendReq(hl=lang_code, tz=360)
+            with st.spinner('Sťahujem a spracovávam dáta z Google Trends... Buďte trpezliví, môže to trvať dlhšie.'):
+                # ZMENA JE TU: Pridaný parameter timeout
+                pytrends = TrendReq(hl=lang_code, tz=360, timeout=(10, 25))
+                
                 pytrends.build_payload(kw_list=keyword_list, cat=0, timeframe=timeframe, geo=country_code, gprop='')
                 interest_over_time_df = pytrends.interest_over_time()
 
